@@ -63,7 +63,7 @@ class _SignupPageState extends State<SignupPage> {
                   },
                   onValidate: (value) {
                     if (value.toString().isEmpty) {
-                      return "Please enter first name";
+                      return 'Please enter First Name.';
                     }
                     return null;
                   },
@@ -76,13 +76,10 @@ class _SignupPageState extends State<SignupPage> {
                     this.model.lastName = value,
                   },
                   onValidate: (value) {
-                    if (value.toString().isEmpty) {
-                      return "Please enter last name";
-                    }
                     return null;
                   },
                 ),
-                FormHelper.fieldLabel("Email ID"),
+                FormHelper.fieldLabel("Email Id"),
                 FormHelper.textInput(
                   context,
                   model.email,
@@ -91,86 +88,79 @@ class _SignupPageState extends State<SignupPage> {
                   },
                   onValidate: (value) {
                     if (value.toString().isEmpty) {
-                      return "Please enter email ID";
+                      return "Please enter Email id";
                     }
-
-                    if (value.isNotEmpty && !value.toString().isValidEmail()) {
-                      return "Please enter valid email ID";
+                    if (value.toString().isNotEmpty &&
+                        !value.toString().isValidEmail()) {
+                      return "Please enter valid email id";
                     }
                     return null;
                   },
                 ),
                 FormHelper.fieldLabel("Password"),
                 FormHelper.textInput(
-                  context,
-                  model.password,
-                  (value) => {
-                    this.model.password = value,
-                  },
-                  onValidate: (value) {
-                    if (value.toString().isEmpty) {
-                      return "Please enter password";
-                    }
-                    return null;
-                  },
-                  obscureText: hidePassword,
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        hidePassword = !hidePassword;
-                      });
-                    },
-                    color: Theme.of(context).accentColor.withOpacity(0.4),
-                    icon: Icon(
-                      hidePassword ? Icons.visibility_off : Icons.visibility,
-                    ),
-                  ),
-                ),
+                    context,
+                    model.password,
+                    (value) => {
+                          this.model.password = value,
+                        }, onValidate: (value) {
+                  if (value.toString().isEmpty) {
+                    return "Please enter Password";
+                  }
+                  return null;
+                },
+                    obscureText: hidePassword,
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          hidePassword = !hidePassword;
+                        });
+                      },
+                      color: Theme.of(context).accentColor.withOpacity(0.4),
+                      icon: Icon(
+                        hidePassword ? Icons.visibility_off : Icons.visibility,
+                      ),
+                    )),
                 SizedBox(
                   height: 20,
                 ),
                 new Center(
-                  child: FormHelper.saveButton(
-                    "Register",
-                    () {
-                      if (validateAndSave()) {
-                        print(model.toJson());
+                  child: FormHelper.saveButton("Register", () {
+                    if (validateAndSave()) {
+                      print(model.toJson());
+                      setState(() {
+                        isApiCallProcess = true;
+                      });
+
+                      apiService.createCustomer(model).then((ret) {
                         setState(() {
-                          isApiCallProcess = true;
+                          isApiCallProcess = false;
                         });
 
-                        apiService.createCustomer(model).then(
-                          (ret) {
-                            setState(() {
-                              isApiCallProcess = false;
-                            });
-
-                            if (ret) {
-                              FormHelper.showMessage(
-                                context,
-                                "joyfulfashionista",
-                                "Registration Successful",
-                                "Ok",
-                                () {
-                                  Navigator.of(context).pop();
-                                },
-                              );
-                            } else {
-                              FormHelper.showMessage(
-                                context,
-                                "joyfulfashionista",
-                                "Email id already registered",
-                                "Ok",
-                                () {
-                                  Navigator.of(context).pop();
-                                },
-                              );
-                            }
-                          },
-                        );
-                      }
-                    },
-                  ),
+                        if (ret) {
+                          FormHelper.showMessage(
+                            context,
+                            "WooCommerce App",
+                            "Registration Successful",
+                            "Ok",
+                            () {
+                              Navigator.of(context).pop();
+                            },
+                          );
+                        } else {
+                          FormHelper.showMessage(
+                            context,
+                            "WooCommerce App",
+                            "Email Id already registered",
+                            "Ok",
+                            () {
+                              Navigator.of(context).pop();
+                            },
+                          );
+                        }
+                      });
+                    }
+                  }),
                 )
               ],
             ),
