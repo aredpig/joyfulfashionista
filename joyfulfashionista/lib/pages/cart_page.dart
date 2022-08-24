@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:joyfulfashionista/pages/verify_address.dart';
 import 'package:provider/provider.dart';
 import '../provider/cart_provider.dart';

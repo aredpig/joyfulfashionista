@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:provider/provider.dart';
 
@@ -41,7 +42,6 @@ class BasePageState<T extends BasePage> extends State<T> {
   Widget _buildAppBar() {
     return AppBar(
       centerTitle: true,
-      brightness: Brightness.dark,
       elevation: 0,
       backgroundColor: Colors.redAccent,
       automaticallyImplyLeading: true,
@@ -64,7 +64,7 @@ class BasePageState<T extends BasePage> extends State<T> {
         SizedBox(
           width: 10,
         ),
-      ],
+      ], systemOverlayStyle: SystemUiOverlayStyle.light,
     );
   }
 }

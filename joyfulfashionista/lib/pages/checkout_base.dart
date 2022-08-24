@@ -1,6 +1,6 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:provider/provider.dart';
 
@@ -57,7 +57,6 @@ class CheckoutBasePageState<T extends CheckoutBasePage> extends State<T> {
   Widget _buildAppBar() {
     return AppBar(
       centerTitle: true,
-      brightness: Brightness.dark,
       elevation: 0,
       backgroundColor: this.myYellowColor,
       automaticallyImplyLeading: showBackbutton,
@@ -65,7 +64,7 @@ class CheckoutBasePageState<T extends CheckoutBasePage> extends State<T> {
         "checkout",
         style: TextStyle(color: Colors.white),
       ),
-      actions: <Widget>[],
+      actions: <Widget>[], systemOverlayStyle: SystemUiOverlayStyle.light,
     );
   }
 

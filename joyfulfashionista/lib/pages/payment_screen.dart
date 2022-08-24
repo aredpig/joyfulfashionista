@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../model/payment.method.dart';
@@ -13,7 +12,6 @@ class PaymentScreen extends CheckoutBasePage {
 
 class _PaymentScreenState extends CheckoutBasePageState<PaymentScreen> {
   PaymentMethosList list;
-  @override
   void initstate() {
     super.initState();
     this.currentPage = 2;

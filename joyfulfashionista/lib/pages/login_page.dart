@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 
 import '../api_service.dart';
@@ -121,6 +120,7 @@ class _LoginState extends State<Login> {
                     SizedBox(
                       height: 20,
                     ),
+                    // ignore: deprecated_member_use
                     RaisedButton(
                       child:
                           Text('Login', style: TextStyle(color: Colors.white)),

@@ -32,7 +32,6 @@ class ProductProvider with ChangeNotifier {
   }
   void resetStreams(){
     _apiServices=APIService();
-    _productList=List<Product>();
   }
   setLoadingState(LoadMoreStatus loadMoreStatus){
     _loadMoreStatus =loadMoreStatus;

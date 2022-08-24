@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:joyfulfashionista/shared_services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import './config.dart';
 import 'model/cart_request_model.dart';
 import 'model/cart_response_model.dart';
@@ -95,7 +94,7 @@ class APIService {
   }
 
   Future<List<Category>> getCategories() async {
-    List<Category> data = List<Category>();
+    List<Category> data = <Category>[];
 
     try {
       String url = Config.url +
@@ -132,7 +131,7 @@ class APIService {
     String sortBy,
     String sortOrder = "asc",
   }) async {
-    List<Product> data = List<Product>();
+    List<Product> data = <Product>[];
 
     try {
       String parameter = "";

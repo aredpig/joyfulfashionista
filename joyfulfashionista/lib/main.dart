@@ -8,25 +8,20 @@ import 'package:joyfulfashionista/pages/product_page.dart';
 import 'package:joyfulfashionista/provider/cart_provider.dart';
 import 'package:joyfulfashionista/provider/loader_provider.dart';
 import 'package:joyfulfashionista/provider/product_provider.dart';
-import 'package:joyfulfashionista/shared_services.dart';
-
 import 'package:provider/provider.dart';
 import 'pages/login_page.dart';
 
-Widget _defaultHome = new Login();
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  bool _result = await SharedService.isLoggedin();
-  if (_result) {
-    _defaultHome = new HomePage();
-  }
-
+  //WidgetsFlutterBinding.ensureInitialized();
+  //bool _result = await SharedService.isLoggedin();
+  //if (_result) {
+  //  _defaultHome = new HomePage();
+  //}
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  @override
   Color myYellowColor = Color(0xff1ffc826);
   Color myBlueColor = Color(0xff1b4573);
   Widget build(BuildContext context) {
@@ -64,7 +59,6 @@ class MyApp extends StatelessWidget {
             foregroundColor: Colors.white,
           ),
           brightness: Brightness.light,
-          accentColor: this.myBlueColor,
           dividerColor: this.myBlueColor,
           focusColor: this.myBlueColor,
           hintColor: this.myBlueColor,
@@ -92,7 +86,7 @@ class MyApp extends StatelessWidget {
               fontWeight: FontWeight.w400,
               color: this.myBlueColor,
             ),
-          ),
+          ), colorScheme: ColorScheme.fromSwatch().copyWith(secondary: this.myBlueColor),
         ),
         //  home: HomePage(),
         home: Login(),

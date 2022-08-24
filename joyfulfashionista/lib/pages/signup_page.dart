@@ -122,7 +122,7 @@ class _SignupPageState extends State<SignupPage> {
                         hidePassword = !hidePassword;
                       });
                     },
-                    color: Theme.of(context).accentColor.withOpacity(.4),
+                    color: Theme.of(context).colorScheme.secondary.withOpacity(.4),
                     icon: Icon(
                       hidePassword ? Icons.visibility_off : Icons.visibility,
                     ),

@@ -14,7 +14,6 @@ class VerifyAddress extends CheckoutBasePage {
 }
 
 class _VerifyAddressState extends CheckoutBasePageState<VerifyAddress> {
-  @override
   final _formKey = GlobalKey<FormState>();
   CustomerDetailModel customerm = new CustomerDetailModel();
   Color myYellowColor = const Color(0xff1ffc826);

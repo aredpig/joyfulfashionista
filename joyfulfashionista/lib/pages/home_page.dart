@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../utlils/cart_icons.dart';
 import 'cart_page.dart';
 import 'dashboard_page.dart';
@@ -69,7 +70,6 @@ class _HomePageState extends State<HomePage> {
   Widget _buildAppBar() {
     return AppBar(
       centerTitle: true,
-      brightness: Brightness.dark,
       elevation: 0,
       backgroundColor: this.myYellowColor,
       automaticallyImplyLeading: false,
@@ -92,7 +92,7 @@ class _HomePageState extends State<HomePage> {
         SizedBox(
           width: 10,
         ),
-      ],
+      ], systemOverlayStyle: SystemUiOverlayStyle.light,
     );
   }
 }

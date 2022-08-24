@@ -1,6 +1,4 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:joyfulfashionista/widgets/widget_related_products.dart';
 
@@ -180,7 +178,7 @@ class ProductDetailsWidget extends StatelessWidget {
                 viewportFraction: 1,
                 aspectRatio: 1.0,
               ),
-              carouselController: _controller,
+              carouselController: _controller, itemBuilder: (BuildContext context, int index, int realIndex) {  },
             ),
           ),
           Positioned(

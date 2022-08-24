@@ -25,12 +25,11 @@ class CartProvider with ChangeNotifier {
   bool get isOrderCreated => _isOrderCreated;
   CartProvider() {
     _apiService = new APIService();
-    _cartItems = new List<CartItem>();
+
   }
 
   void resetStreams() {
     _apiService = new APIService();
-    _cartItems = new List<CartItem>();
   }
 
   void addToCart(
@@ -38,7 +37,7 @@ class CartProvider with ChangeNotifier {
     Function onCallBack,
   ) async {
     CartRequestModel requestModel = new CartRequestModel();
-    requestModel.products = new List<CartProducts>();
+
 
     if (_cartItems == null) resetStreams();
 
@@ -100,7 +99,7 @@ class CartProvider with ChangeNotifier {
     }
 
     CartRequestModel requestModel = new CartRequestModel();
-    requestModel.products = new List<CartProducts>();
+
     if (_cartItems == null) resetStreams();
     print(_cartItems);
     _cartItems.forEach((element) {
