@@ -43,11 +43,11 @@ class APIService {
     try {
       var response = await Dio().post(Config.tokenURL,
           data: {
-            "username": username,
-            "password": password,
+            'username': username,
+            'password': password,
           },
           options: new Options(headers: {
-            HttpHeaders.contentTypeHeader: "application/x-www-form-urlencode",
+            HttpHeaders.contentTypeHeader: "application/json",
           }));
 
       if (response.statusCode == 200) {
