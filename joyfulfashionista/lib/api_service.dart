@@ -1,10 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'config.dart';
 import 'models/customer.dart';
 import 'package:dio/dio.dart';
-
 import 'models/login_model.dart';
 
 class APIService {
