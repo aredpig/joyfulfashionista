@@ -1,0 +1,8 @@
+###
+POST https://joyfulteams.shop/wp-json/jwt-auth/v1/token HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "test3@163.com",
+    "password": "123456"
+}
