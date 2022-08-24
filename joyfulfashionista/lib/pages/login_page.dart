@@ -35,11 +35,11 @@ class _LoginState extends State<Login> {
         Container(
           padding: EdgeInsets.only(top: 100, right: 10, left: 10),
           decoration: BoxDecoration(
-            image: DecorationImage(
-              image: NetworkImage(
-                  'https://brasabeer.com/wp-content/uploads/2021/11/Brasa_Logo_RGB-small.png'),
+            image : new DecorationImage(
+              image: new ExactAssetImage('asset/images/app_icon.jpg'),
               fit: BoxFit.scaleDown,
             ),
+
           ),
         ),
         Container(
@@ -121,43 +121,46 @@ class _LoginState extends State<Login> {
                       height: 20,
                     ),
                     // ignore: deprecated_member_use
-                    RaisedButton(
+                    FlatButton(
                       child:
                           Text('Login', style: TextStyle(color: Colors.white)),
-                      onPressed: () async {
-                        FocusScope.of(context).unfocus();
-                        var validate = globalKey.currentState.validate();
-                        if (!validate) {
-                          return;
-                        }
-                        setState(() {
-                          isApiCallProcess = true;
-                        });
-                        var response =
-                            await APIService.loginCustomer(username, password);
-                        setState(() {
-                          isApiCallProcess = false;
-                        });
-                        if (response) {
-                          globalKey.currentState.reset();
+                      onPressed: () {
+                        if (validateAndSave()) {
                           setState(() {
-                            isApiCallProcess = false;
+                            isApiCallProcess = true;
                           });
-                          FormHelper.showMessage(
-                              context, 'Done', 'Logged In Successfully', 'Ok',
-                              () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => (HomePage()),
-                              ),
-                            );
-                          });
-                        } else {
-                          FormHelper.showMessage(
-                              context, 'Error!!', 'Email/Password wrong', 'Ok',
-                              () {
-                            Navigator.of(context).pop();
+
+                          apiServices
+                              .loginCustomer(username, password)
+                              .then((ret) {
+                            if (ret != null) {
+                              print(ret.data.token);
+                              print(ret.data.toJson());
+
+                              setState(() {
+                                isApiCallProcess = false;
+                              });
+
+                              FormHelper.showMessage(
+                                  context, 'Done', 'Logged In Successfully', 'Ok',
+                                      () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => (HomePage()),
+                                      ),
+                                    );
+                                  }
+                              );
+                            } else {
+                              FormHelper.showMessage(
+                                context,
+                                "WooCommerce App",
+                                "Invalid Login!!",
+                                "Ok",
+                                    () {},
+                              );
+                            }
                           });
                         }
                       },

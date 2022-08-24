@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'package:provider/provider.dart';
-
 import '../provider/loader_provider.dart';
 import '../utlils/progressHUD.dart';
 
@@ -46,7 +44,7 @@ class BasePageState<T extends BasePage> extends State<T> {
       backgroundColor: Colors.redAccent,
       automaticallyImplyLeading: true,
       title: Text(
-        'Brasa Beer',
+        'Fashonista',
         style: TextStyle(color: Colors.white),
       ),
       actions: [

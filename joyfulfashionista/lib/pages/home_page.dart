@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: this.myYellowColor,
       automaticallyImplyLeading: false,
       title: Text(
-        'Brasa Beer',
+        'Fashionista',
         style: TextStyle(color: Colors.white),
       ),
       actions: [

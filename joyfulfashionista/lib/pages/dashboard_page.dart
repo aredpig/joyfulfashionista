@@ -1,7 +1,4 @@
-import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
-
-
 import '../config.dart';
 import '../widgets/widget_home_products.dart';
 
@@ -30,42 +27,6 @@ class _DashboardPageState extends State<DashboardPage> {
             //)
           ],
         ),
-      ),
-    );
-  }
-
-  Widget imageCarousel(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: 200,
-      child: Carousel(
-        overlayShadow: false,
-        borderRadius: true,
-        boxFit: BoxFit.none,
-        autoplay: true,
-        dotSize: 4.0,
-        images: [
-          FittedBox(
-            fit: BoxFit.fill,
-            child: Image.network(
-                "https://www.odobanprofessional.com/media/Header/Header-Discontinued.jpg"),
-          ),
-          FittedBox(
-            fit: BoxFit.fill,
-            child: Image.network(
-                "https://i.pinimg.com/originals/bb/8d/ca/bb8dca87bc56a86addd29716338226d4.jpg"),
-          ),
-          FittedBox(
-            fit: BoxFit.fill,
-            child: Image.network(
-                "https://www.helioswatchstore.com/sites/default/files/upto-50-off-banner.jpg"),
-          ),
-          FittedBox(
-            fit: BoxFit.fill,
-            child: Image.network(
-                "https://www.shoescience.co.nz/media/y0dbzxyi/asics-glideride-30-off-banner-sep20.jpg"),
-          ),
-        ],
       ),
     );
   }

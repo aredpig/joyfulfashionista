@@ -32,15 +32,6 @@ class _CartPageState extends State<CartPage> {
         ),
       );
     });
-    /*CartItem data = new CartItem();
-    data.productId = 1;
-    data.productName = "Beer Bottles";
-    data.productRegularPrice = "20";
-    data.productsalePrice = "30.50";
-    data.thumbNail =
-        'https://brasabeer.com/wp-content/uploads/2021/07/corona-premier_180x-1.webp';
-
-    return CartProduct(data: data);*/
   }
 
   Widget _cartItemsList() {

@@ -69,7 +69,10 @@ class APIService {
     return ret;
   }
 
-  static Future<bool> loginCustomer(String username, String password) async {
+  Future<LoginResponse> loginCustomer(
+      String username, String password) async {
+    LoginResponse model;
+
     try {
       var response = await Dio().post(Config.tokenURL,
           data: {
@@ -81,16 +84,13 @@ class APIService {
           }));
 
       if (response.statusCode == 200) {
-        var jsonString = response.data;
-        LoginResponse responseModel = loginResponseFromJson(jsonString);
-        SharedService.setLoginDetails(responseModel);
-        return responseModel.statusCode == 200 ? true : false;
+        model = LoginResponse.fromJson(response.data);
       }
     } on DioError catch (e) {
       print(e.message);
     }
 
-    return false;
+    return model;
   }
 
   Future<List<Category>> getCategories() async {
