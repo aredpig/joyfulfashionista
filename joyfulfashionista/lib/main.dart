@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:joyfulfashionista/pages/login_page.dart';
 
 import 'pages/signup_page.dart';
 
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'WooCommerce App',
       debugShowCheckedModeBanner: false,
-      home: SignupPage(),
+      home: LoginPage(),
     );
   }
 }
