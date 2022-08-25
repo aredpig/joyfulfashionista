@@ -25,3 +25,12 @@ doc/api/
 
 .flutter-plugins
 .flutter-plugins-dependencies
+*.xcconfig
+joyfulfashionista/ios/Podfile
+joyfulfashionista/ios/Podfile.lock
+joyfulfashionista/macos/Podfile
+joyfulfashionista/macos/Flutter/Flutter-Release.xcconfig
+joyfulfashionista/ios/Runner/Base.lproj/Main.storyboard
+joyfulfashionista/ios/Runner.xcworkspace/contents.xcworkspacedata
+joyfulfashionista/ios/Runner.xcodeproj/project.pbxproj
+joyfulfashionista/ios/Flutter/Release.xcconfig
