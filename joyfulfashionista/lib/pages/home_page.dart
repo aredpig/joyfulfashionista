@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import '../utlils/cart_icons.dart';
 import 'cart_page.dart';
 import 'dashboard_page.dart';
-import 'payment_screen.dart';
+import 'login_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -17,8 +17,7 @@ class _HomePageState extends State<HomePage> {
     DashboardPage(),
     CartPage(),
     DashboardPage(),
-    // DashboardPage(),
-    PaymentScreen(),
+    Login(),
   ];
   int _index = 0;
 

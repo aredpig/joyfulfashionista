@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
 import '../api_service.dart';
 import '../utlils/form_helper.dart';
 import '../utlils/progressHUD.dart';
-import 'home_page.dart';
+import 'profile_page.dart';
 import 'signup_page.dart';
 
 
@@ -147,7 +146,7 @@ class _LoginState extends State<Login> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => (HomePage()),
+                                        builder: (context) => (Profile()),
                                       ),
                                     );
                                   }

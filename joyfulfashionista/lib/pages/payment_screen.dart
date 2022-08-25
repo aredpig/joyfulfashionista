@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../model/payment.method.dart';
 import '../widgets/widget_payment_method.dart';
 import 'checkout_base.dart';

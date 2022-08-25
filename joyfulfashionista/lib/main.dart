@@ -10,14 +10,10 @@ import 'package:joyfulfashionista/provider/loader_provider.dart';
 import 'package:joyfulfashionista/provider/product_provider.dart';
 import 'package:provider/provider.dart';
 import 'pages/login_page.dart';
+import 'pages/profile_page.dart';
 
 
 void main() async {
-  //WidgetsFlutterBinding.ensureInitialized();
-  //bool _result = await SharedService.isLoggedin();
-  //if (_result) {
-  //  _defaultHome = new HomePage();
-  //}
   runApp(MyApp());
 }
 
@@ -88,8 +84,9 @@ class MyApp extends StatelessWidget {
             ),
           ), colorScheme: ColorScheme.fromSwatch().copyWith(secondary: this.myBlueColor),
         ),
-        //  home: HomePage(),
-        home: Login(),
+        //home: Profile(),
+        home: HomePage(),
+
         routes: <String, WidgetBuilder>{
           '/home': (BuildContext context) => new HomePage(),
           '/login': (BuildContext context) => new Login(),

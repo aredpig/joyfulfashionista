@@ -89,7 +89,27 @@ class APIService {
     } on DioError catch (e) {
       print(e.message);
     }
+    return model;
+  }
 
+  Future<LoginResponse> NameTag(
+      String username) async {
+    LoginResponse model;
+    try {
+      var response = await Dio().post(Config.tokenURL,
+          data: {
+            'username': username,
+          },
+          options: new Options(headers: {
+            HttpHeaders.contentTypeHeader: "application/json",
+          }));
+
+      if (response.statusCode == 200) {
+        model = LoginResponse.fromJson(response.data);
+      }
+    } on DioError catch (e) {
+      print(e.message);
+    }
     return model;
   }
 
