@@ -139,25 +139,19 @@ class _LoginState extends State<Login> {
                               setState(() {
                                 isApiCallProcess = false;
                               });
-
-                              FormHelper.showMessage(
-                                  context, 'Done', 'Logged In Successfully', 'Ok',
-                                      () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => (Profile()),
-                                      ),
-                                    );
-                                  }
-                              );
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                  builder: (context) => Profile()));
                             } else {
                               FormHelper.showMessage(
                                 context,
                                 "WooCommerce App",
-                                "Invalid Login!!",
+                                "Invalid Login!",
                                 "Ok",
-                                    () {},
+                                    () {
+                                      Navigator.of(context).pop();
+                                    },
                               );
                             }
                           });
