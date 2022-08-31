@@ -11,6 +11,7 @@ class FormHelper {
     Function onValidate,
     Widget prefixIcon,
     Widget suffixIcon,
+    bool readonly = false,
   }) {
     return TextFormField(
       initialValue: initialValue != null ? initialValue.toString() : "",
@@ -20,6 +21,7 @@ class FormHelper {
         "",
         suffixIcon: suffixIcon,
       ),
+      readOnly: readonly,
       obscureText: obscureText,
       maxLines: !isTextArea ? 1 : 3,
       keyboardType: isNumberInput ? TextInputType.number : TextInputType.text,
@@ -47,13 +49,13 @@ class FormHelper {
       suffixIcon: suffixIcon,
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: Theme.of(context).primaryColor,
+          color: Colors.grey,
           width: 1,
         ),
       ),
       border: OutlineInputBorder(
         borderSide: BorderSide(
-          color: Theme.of(context).primaryColor,
+          color: Colors.grey,
           width: 1,
         ),
       ),
@@ -73,8 +75,20 @@ class FormHelper {
     );
   }
 
+  static Widget fieldLabelValue(BuildContext context, String labelName) {
+    return FormHelper.textInput(context, labelName, (value) => {},
+        onValidate: (value) {
+      if (value.isEmpty) {
+        return 'Required field';
+      }
+      return null;
+    }, readonly: false);
+  }
+
   static Widget saveButton(String buttonText, Function onTap,
       {String color, String textColor, bool fullWidth}) {
+    Color myYellowColor = Color(0xff1ffc826);
+    Color myBlueColor = Color(0xff1b4573);
     return Container(
       height: 50.0,
       width: 150,
@@ -85,11 +99,11 @@ class FormHelper {
         child: Container(
           decoration: BoxDecoration(
             border: Border.all(
-              color: Colors.redAccent,
+              color: myBlueColor,
               style: BorderStyle.solid,
               width: 1.0,
             ),
-            color: Colors.redAccent,
+            color: myBlueColor,
             borderRadius: BorderRadius.circular(30.0),
           ),
           child: Row(

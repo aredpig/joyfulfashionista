@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:joyfulfashionista/api_service.dart';
-import 'package:joyfulfashionista/models/customer.dart';
-import 'package:joyfulfashionista/utils/ProgressHUD.dart';
-import 'package:joyfulfashionista/utils/from_helper.dart';
-import 'package:joyfulfashionista/utils/validator_service.dart';
+
+import '../api_service.dart';
+import '../model/customer.dart';
+import '../utlils/form_helper.dart';
+import '../utlils/progressHUD.dart';
+import 'login_page.dart';
+
 
 class SignupPage extends StatefulWidget {
   @override
@@ -11,30 +13,31 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
-  APIService apiService;
+  APIService apiServices;
   CustomerModel model;
   GlobalKey<FormState> globalKey = GlobalKey<FormState>();
   bool hidePassword = true;
   bool isApiCallProcess = false;
+  Color myYellowColor = Color(0xff1ffc826);
+  Color myBlueColor = Color(0xff1b4573);
 
   @override
   void initState() {
-    apiService = new APIService();
+    apiServices = new APIService();
     model = new CustomerModel();
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.redAccent,
+        backgroundColor: this.myYellowColor,
         automaticallyImplyLeading: true,
-        title: Text("Sign Up"),
+        title: Text('Sign Up'),
       ),
       body: ProgressHUD(
-        child: new Form(
+        child: Form(
           key: globalKey,
           child: _formUI(),
         ),
@@ -54,128 +57,128 @@ class _SignupPageState extends State<SignupPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                FormHelper.fieldLabel("First Name"),
+                FormHelper.fieldLabel('First Name'),
                 FormHelper.textInput(
                   context,
                   model.firstName,
                   (value) => {
                     this.model.firstName = value,
                   },
-                  onValidate: (value) {
-                    if (value.toString().isEmpty) {
-                      return 'Please enter First Name.';
+                  onValidate: (String value) {
+                    if (value.isEmpty) {
+                      return 'please enter first Name';
                     }
                     return null;
                   },
                 ),
-                FormHelper.fieldLabel("Last Name"),
+                FormHelper.fieldLabel('Last Name'),
                 FormHelper.textInput(
                   context,
                   model.lastName,
                   (value) => {
                     this.model.lastName = value,
                   },
-                  onValidate: (value) {
+                  onValidate: (String value) {
+                    if (value.isEmpty) {
+                      return 'please enter last Name';
+                    }
                     return null;
                   },
                 ),
-                FormHelper.fieldLabel("Email Id"),
+                FormHelper.fieldLabel('Email'),
                 FormHelper.textInput(
                   context,
                   model.email,
-                  (value) => {
-                    this.model.email = value,
+                  (String value) {
+                    model.email = value;
                   },
-                  onValidate: (value) {
-                    if (value.toString().isEmpty) {
-                      return "Please enter Email id";
+                  onValidate: (String value) {
+                    if (!value.contains('@') || !value.endsWith('.com')) {
+                      return 'Please Enter a valid Email';
                     }
-                    if (value.toString().isNotEmpty &&
-                        !value.toString().isValidEmail()) {
-                      return "Please enter valid email id";
+                    if (value.isEmpty) {
+                      return 'Please enter Email';
                     }
                     return null;
                   },
                 ),
-                FormHelper.fieldLabel("Password"),
+                FormHelper.fieldLabel('Password'),
                 FormHelper.textInput(
-                    context,
-                    model.password,
-                    (value) => {
-                          this.model.password = value,
-                        }, onValidate: (value) {
-                  if (value.toString().isEmpty) {
-                    return "Please enter Password";
-                  }
-                  return null;
-                },
-                    obscureText: hidePassword,
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          hidePassword = !hidePassword;
-                        });
-                      },
-                      color: Theme.of(context).accentColor.withOpacity(0.4),
-                      icon: Icon(
-                        hidePassword ? Icons.visibility_off : Icons.visibility,
-                      ),
-                    )),
+                  context,
+                  model.password,
+                  (value) => {
+                    this.model.password = value,
+                  },
+                  onValidate: (value) {
+                    if (value.toString().isEmpty) {
+                      return 'please enter Password';
+                    }
+                    return null;
+                  },
+                  obscureText: hidePassword,
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        hidePassword = !hidePassword;
+                      });
+                    },
+                    color: Theme.of(context).colorScheme.secondary.withOpacity(.4),
+                    icon: Icon(
+                      hidePassword ? Icons.visibility_off : Icons.visibility,
+                    ),
+                  ),
+                ),
                 SizedBox(
                   height: 20,
                 ),
-                new Center(
-                  child: FormHelper.saveButton("Register", () {
-                    if (validateAndSave()) {
+                Center(
+                  child: FormHelper.saveButton(
+                    'SignUp',
+                    () async {
+                      FocusScope.of(context).unfocus();
+                      var validate = globalKey.currentState.validate();
+                      if (!validate) {
+                        return;
+                      }
+                      globalKey.currentState.save();
                       print(model.toJson());
                       setState(() {
                         isApiCallProcess = true;
                       });
-
-                      apiService.createCustomer(model).then((ret) {
-                        setState(() {
-                          isApiCallProcess = false;
-                        });
-
-                        if (ret) {
-                          FormHelper.showMessage(
-                            context,
-                            "WooCommerce App",
-                            "Registration Successful",
-                            "Ok",
-                            () {
-                              Navigator.of(context).pop();
-                            },
-                          );
-                        } else {
-                          FormHelper.showMessage(
-                            context,
-                            "WooCommerce App",
-                            "Email Id already registered",
-                            "Ok",
-                            () {
-                              Navigator.of(context).pop();
-                            },
-                          );
-                        }
+                      var ret = await apiServices.createCustomer(model);
+                      setState(() {
+                        isApiCallProcess = false;
                       });
-                    }
-                  }),
-                )
+                      if (ret) {
+                        FormHelper.showMessage(
+                          context,
+                          'Done',
+                          'User has been Created successfully',
+                          'OK',
+                          () {
+                            // Navigator.of(context).pop();
+                            return Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Login(),
+                              ),
+                            );
+                          },
+                        );
+                      } else {
+                        FormHelper.showMessage(context, 'Error',
+                            'Something went wrong, check your Data', 'OK', () {
+                          Navigator.of(context).pop();
+                        });
+                      }
+                    },
+                  ),
+                ),
               ],
             ),
           ),
         ),
       ),
     );
-  }
-
-  bool validateAndSave() {
-    final form = globalKey.currentState;
-    if (form.validate()) {
-      form.save();
-      return true;
-    }
-    return false;
   }
 }

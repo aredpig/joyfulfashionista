@@ -1,186 +1,201 @@
 import 'package:flutter/material.dart';
-
 import '../api_service.dart';
-import '../utils/ProgressHUD.dart';
-import '../utils/from_helper.dart';
+import '../utlils/form_helper.dart';
+import '../utlils/progressHUD.dart';
+import 'profile_page.dart';
+import 'signup_page.dart';
 
-class LoginPage extends StatefulWidget {
+
+class Login extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _LoginState createState() => _LoginState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginState extends State<Login> {
   bool hidePassword = true;
   bool isApiCallProcess = false;
-  GlobalKey<FormState> globalKey = GlobalKey<FormState>();
+  APIService apiServices;
+
   String username;
   String password;
-  APIService apiService;
-
+  GlobalKey<FormState> globalKey = GlobalKey<FormState>();
+  Color myYellowColor = Color(0xff1ffc826);
+  Color myBlueColor = Color(0xff1b4573);
   @override
   void initState() {
-    apiService = new APIService();
+    apiServices = APIService();
     super.initState();
+  }
+
+  Widget _uiScreen() {
+    return SingleChildScrollView(
+      child: SafeArea(
+          child: Column(children: [
+        Container(
+          padding: EdgeInsets.only(top: 100, right: 10, left: 10),
+          decoration: BoxDecoration(
+            image : new DecorationImage(
+              image: new ExactAssetImage('asset/images/app_icon.jpg'),
+              fit: BoxFit.scaleDown,
+            ),
+
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.only(top: 40, right: 10, left: 10),
+          child: Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: Form(
+              key: globalKey,
+              child: Padding(
+                padding: const EdgeInsets.all(40),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Login',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: this.myBlueColor,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      validator: (value) {
+                        if (!value.contains('@') || !value.endsWith('.com')) {
+                          return 'Please Enter a valid Email';
+                        }
+                        if (value.isEmpty) {
+                          return 'Please enter Email';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        labelText: 'Email',
+                        prefixIcon: Icon(
+                          Icons.email,
+                          color: this.myBlueColor,
+                        ),
+                      ),
+                      onChanged: (value) => username = value,
+                    ),
+                    TextFormField(
+                      obscureText: hidePassword,
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please Enter Password';
+                        }
+                        if (value.length < 6) {
+                          return 'Password is Too Short';
+                        }
+                        return null;
+                      },
+                      onChanged: (value) => password = value,
+                      decoration: InputDecoration(
+                        labelText: 'Password',
+                        prefixIcon: Icon(
+                          Icons.lock,
+                          color: this.myBlueColor,
+                        ),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            hidePassword
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              hidePassword = !hidePassword;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    // ignore: deprecated_member_use
+                    FlatButton(
+                      child:
+                          Text('Login', style: TextStyle(color: Colors.white)),
+                      onPressed: () {
+                        if (validateAndSave()) {
+                          setState(() {
+                            isApiCallProcess = true;
+                          });
+
+                          apiServices
+                              .loginCustomer(username, password)
+                              .then((ret) {
+                            if (ret != null) {
+                              print(ret.data.token);
+                              print(ret.data.toJson());
+
+                              setState(() {
+                                isApiCallProcess = false;
+                              });
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                  builder: (context) => Profile()));
+                            } else {
+                              FormHelper.showMessage(
+                                context,
+                                "WooCommerce App",
+                                "Invalid Login!",
+                                "Ok",
+                                    () {
+                                      Navigator.of(context).pop();
+                                    },
+                              );
+                            }
+                          });
+                        }
+                      },
+                      color: this.myBlueColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
+                    Align(
+                      child: GestureDetector(
+                        child: Text(
+                          'Don\'t have account sign up',
+                          style:
+                              TextStyle(color: this.myBlueColor, fontSize: 16),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => (SignupPage()),
+                            ),
+                          );
+                        },
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ])),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return ProgressHUD(
-      child: _uiSetup(context),
-      inAsyncCall: isApiCallProcess,
-      opacity: 0.3,
-    );
-  }
-
-  Widget _uiSetup(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).accentColor,
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Stack(
-              children: <Widget>[
-                Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-                  margin: EdgeInsets.symmetric(vertical: 85, horizontal: 20),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Theme.of(context).primaryColor,
-                    boxShadow: [
-                      BoxShadow(
-                          color: Theme.of(context).hintColor.withOpacity(0.2),
-                          offset: Offset(0, 10),
-                          blurRadius: 20)
-                    ],
-                  ),
-                  child: Form(
-                    key: globalKey,
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(height: 25),
-                        Text(
-                          "Login",
-                          style: Theme.of(context).textTheme.headline2,
-                        ),
-                        SizedBox(height: 20),
-                        new TextFormField(
-                          keyboardType: TextInputType.emailAddress,
-                          onSaved: (input) => username = input,
-                          validator: (input) => !input.contains('@')
-                              ? "Email Id should be valid"
-                              : null,
-                          decoration: new InputDecoration(
-                            hintText: "Email Address",
-                            enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Theme.of(context)
-                                        .accentColor
-                                        .withOpacity(0.2))),
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Theme.of(context).accentColor)),
-                            prefixIcon: Icon(
-                              Icons.email,
-                              color: Theme.of(context).accentColor,
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 20),
-                        new TextFormField(
-                          style:
-                              TextStyle(color: Theme.of(context).accentColor),
-                          keyboardType: TextInputType.text,
-                          onSaved: (input) => password = input,
-                          validator: (input) => input.length < 3
-                              ? "Password should be more than 3 characters"
-                              : null,
-                          obscureText: hidePassword,
-                          decoration: new InputDecoration(
-                            hintText: "Password",
-                            enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Theme.of(context)
-                                        .accentColor
-                                        .withOpacity(0.2))),
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Theme.of(context).accentColor)),
-                            prefixIcon: Icon(
-                              Icons.lock,
-                              color: Theme.of(context).accentColor,
-                            ),
-                            suffixIcon: IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  hidePassword = !hidePassword;
-                                });
-                              },
-                              color: Theme.of(context)
-                                  .accentColor
-                                  .withOpacity(0.4),
-                              icon: Icon(hidePassword
-                                  ? Icons.visibility_off
-                                  : Icons.visibility),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 30),
-                        FlatButton(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 12, horizontal: 80),
-                          onPressed: () {
-                            if (validateAndSave()) {
-                              setState(() {
-                                isApiCallProcess = true;
-                              });
-
-                              apiService
-                                  .loginCustomer(username, password)
-                                  .then((ret) {
-                                if (ret != null) {
-                                  print(ret.data.token);
-                                  print(ret.data.toJson());
-
-                                  setState(() {
-                                    isApiCallProcess = false;
-                                  });
-
-                                  FormHelper.showMessage(
-                                    context,
-                                    "WooCommerce App",
-                                    "Login Successful",
-                                    "Ok",
-                                    () {},
-                                  );
-                                } else {
-                                  FormHelper.showMessage(
-                                    context,
-                                    "WooCommerce App",
-                                    "Invalid Login!!",
-                                    "Ok",
-                                    () {},
-                                  );
-                                }
-                              });
-                            }
-                          },
-                          child: Text(
-                            "Login",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          color: Theme.of(context).accentColor,
-                          shape: StadiumBorder(),
-                        ),
-                        SizedBox(height: 15),
-                      ],
-                    ),
-                  ),
-                )
-              ],
-            )
-          ],
-        ),
+      backgroundColor: this.myYellowColor,
+      body: ProgressHUD(
+        inAsyncCall: isApiCallProcess,
+        child: _uiScreen(),
       ),
     );
   }

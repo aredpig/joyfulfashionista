@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ProgressHUD extends StatelessWidget {
+
   final Widget child;
   final bool inAsyncCall;
   final double opacity;
@@ -27,7 +28,9 @@ class ProgressHUD extends StatelessWidget {
             opacity: opacity,
             child: ModalBarrier(dismissible: false, color: color),
           ),
-          new Center(child: new CircularProgressIndicator()),
+          new Center(
+              child: new CircularProgressIndicator()
+          ),
         ],
       );
       widgetList.add(modal);
