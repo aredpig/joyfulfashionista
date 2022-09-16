@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:joyfulfashionista/Page14-20/aboutme.dart';
 import 'package:joyfulfashionista/pages/base_page.dart';
 import 'package:joyfulfashionista/pages/cart_page.dart';
 import 'package:joyfulfashionista/pages/checkout_base.dart';
@@ -9,6 +10,7 @@ import 'package:joyfulfashionista/provider/cart_provider.dart';
 import 'package:joyfulfashionista/provider/loader_provider.dart';
 import 'package:joyfulfashionista/provider/product_provider.dart';
 import 'package:provider/provider.dart';
+import 'Page14-20/managemyaccount.dart';
 import 'pages/login_page.dart';
 import 'pages/profile_page.dart';
 
@@ -84,8 +86,9 @@ class MyApp extends StatelessWidget {
             ),
           ), colorScheme: ColorScheme.fromSwatch().copyWith(secondary: this.myBlueColor),
         ),
-        //home: Profile(),
-        home: HomePage(),
+        //////Launch page change here
+        home: AboutMe(),
+        //home: ManageMyAccount(),
 
         routes: <String, WidgetBuilder>{
           '/home': (BuildContext context) => new HomePage(),
