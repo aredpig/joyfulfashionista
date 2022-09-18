@@ -3,6 +3,8 @@ import 'package:url_launcher/url_launcher.dart';
 import '../pages/home_page.dart';
 import 'dart:async';
 
+import 'Account.dart';
+
 class AboutMe extends StatefulWidget {
   AboutMe({Key key}) : super(key: key);
   @override
@@ -12,7 +14,8 @@ class AboutMe extends StatefulWidget {
 class AboutMeState extends State<AboutMe>{
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    double screen_height = MediaQuery.of(context).size.height;
+    double screen_width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -22,7 +25,7 @@ class AboutMeState extends State<AboutMe>{
           ),
           onPressed: () {
           // Press and navigate to another page
-             Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));
+             Navigator.of(context).push(MaterialPageRoute(builder: (context) => Account()));
            },
         ),
         title: Text("About Me", style: TextStyle(fontStyle: FontStyle.italic,color: Colors.black),
@@ -35,17 +38,22 @@ class AboutMeState extends State<AboutMe>{
           ),
         ],
       ),
-
       body: Column(
         children: [
-          Padding(padding: EdgeInsets.only(top: 10.0)),
+          Padding(padding: EdgeInsets.only(top: screen_height*0.014)),
           Container(
-            child: Image.asset('asset/images/app_icon.jpg',
-              height: 100,
-              width: 100,
-              fit: BoxFit.fitWidth),
+            height: screen_height*0.3,
+            width: screen_width*0.95,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(30),
+              child: SizedBox.fromSize(
+                size: Size.fromRadius(100), // Image radius
+                child: Image.asset('asset/images/About_me.jpg',
+                    fit: BoxFit.cover),
+              ),
+            ),
           ),
-          Padding(padding: EdgeInsets.only(top: 10.0)),
+          Padding(padding: EdgeInsets.only(top: screen_height*0.01)),
           Container(
             child: Text("Serina Bird, Founder",
                 style: TextStyle(fontSize: 20,
@@ -55,7 +63,7 @@ class AboutMeState extends State<AboutMe>{
           ),
           Container(
             margin: const EdgeInsets.all(10.0),
-            height: 380.0,
+            height: screen_height*0.42,
             decoration: BoxDecoration(border: Border.all(
               color: Colors.white,
               width: 1.0),

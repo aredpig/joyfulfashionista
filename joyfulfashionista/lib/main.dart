@@ -10,6 +10,7 @@ import 'package:joyfulfashionista/provider/cart_provider.dart';
 import 'package:joyfulfashionista/provider/loader_provider.dart';
 import 'package:joyfulfashionista/provider/product_provider.dart';
 import 'package:provider/provider.dart';
+import 'Page14-20/Account.dart';
 import 'Page14-20/managemyaccount.dart';
 import 'pages/login_page.dart';
 import 'pages/profile_page.dart';
@@ -89,7 +90,8 @@ class MyApp extends StatelessWidget {
         //////Launch page change here
         //home: AboutMe(),
         //home: ManageMyAccount(),
-        home:HomePage(),
+        //home:HomePage(),
+        home:Account(),
 
         routes: <String, WidgetBuilder>{
           '/home': (BuildContext context) => new HomePage(),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../Page14-20/Account.dart';
 import '../api_service.dart';
 import '../utlils/form_helper.dart';
 import '../utlils/progressHUD.dart';
@@ -142,7 +143,7 @@ class _LoginState extends State<Login> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                  builder: (context) => Profile()));
+                                  builder: (context) => Account()));
                             } else {
                               FormHelper.showMessage(
                                 context,
