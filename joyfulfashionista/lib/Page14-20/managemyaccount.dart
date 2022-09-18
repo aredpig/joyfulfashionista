@@ -50,7 +50,8 @@ class ManageMyAccountState extends State<ManageMyAccount> {
                         child: SizedBox(
                           width: 100,
                           height: 100,
-                          child: Center(child: Text('Image')),
+                          child: Center(child:
+                          Text('Image')),
                         ),
                       ),
                       Text("data")
@@ -91,7 +92,8 @@ class ManageMyAccountState extends State<ManageMyAccount> {
               children: [
                 Padding(padding: EdgeInsets.only(top: 10.0)),
                 Container(
-                  child: TextButton(
+                  child:
+                  TextButton(
                     style: TextButton.styleFrom(
                       primary: Colors.black,
                       fixedSize: Size.fromWidth(500),

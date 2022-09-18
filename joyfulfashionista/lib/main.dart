@@ -87,8 +87,9 @@ class MyApp extends StatelessWidget {
           ), colorScheme: ColorScheme.fromSwatch().copyWith(secondary: this.myBlueColor),
         ),
         //////Launch page change here
-        home: AboutMe(),
+        //home: AboutMe(),
         //home: ManageMyAccount(),
+        home:HomePage(),
 
         routes: <String, WidgetBuilder>{
           '/home': (BuildContext context) => new HomePage(),

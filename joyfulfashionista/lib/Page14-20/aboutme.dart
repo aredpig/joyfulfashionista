@@ -104,7 +104,8 @@ class AboutMeState extends State<AboutMe>{
               ),
             ),
           ),
-          Container(child: Text("Follow Us",
+          Container(
+            child: Text("Follow Us",
             style: TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.bold,
