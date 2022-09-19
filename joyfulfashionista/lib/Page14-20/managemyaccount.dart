@@ -25,7 +25,8 @@ class ManageMyAccountState extends State<ManageMyAccount> {
     double screen_width = MediaQuery.of(context).size.width;
     // TODO: implement build
     return Scaffold(
-      backgroundColor: Color(0xff52bebe),
+      //backgroundColor: Color(0xff52bebe),
+      backgroundColor: Colors.white,
       appBar: AppBar( //App Header Bar
         title: Text('Manage My Account',
           style: TextStyle(fontStyle: FontStyle.italic, // FontStyle

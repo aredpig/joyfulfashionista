@@ -16,7 +16,8 @@ class AccountState extends State<Account> {
     double screen_height = MediaQuery.of(context).size.height;
     double screen_width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Color(0xff52bebe),
+      //backgroundColor: Color(0xff52bebe),
+      backgroundColor: Colors.white,
       body: Column(
         children: [
           Padding(padding: EdgeInsets.only(top: screen_height*0.03)),
