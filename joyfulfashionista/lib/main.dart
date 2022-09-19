@@ -90,8 +90,8 @@ class MyApp extends StatelessWidget {
         //////Launch page change here
         //home: AboutMe(),
         //home: ManageMyAccount(),
-        //home:HomePage(),
-        home:Account(),
+        home:HomePage(),
+        //home:Account(),
 
         routes: <String, WidgetBuilder>{
           '/home': (BuildContext context) => new HomePage(),

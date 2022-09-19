@@ -17,82 +17,9 @@ class AccountState extends State<Account> {
     double screen_width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Color(0xff52bebe),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black),
-        title: IconButton(
-          icon: Image.asset('asset/images/app_icon.jpg'),
-        ),
-        actions:<Widget>[
-          Padding(
-              padding: EdgeInsets.only(right: screen_width*0.001),
-              child: IconButton(
-                icon: Icon(
-                    Icons.shopping_cart_outlined,color: Colors.black
-                ),
-                onPressed: () {
-                  // Press and navigate to another page
-                  //Navigator.of(context).push(MaterialPageRoute(builder: (context) => CartPage()));
-                },
-              )
-          ),
-          Padding(
-              padding: EdgeInsets.only(right: screen_width*0.001),
-              child: IconButton(
-                icon: Icon(
-                    Icons.favorite_border,color: Colors.black
-                ),
-                onPressed: () {
-                  // Press and navigate to another page
-                  //Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));
-                },
-              )
-          ),
-        ]
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            const UserAccountsDrawerHeader( // <-- SEE HERE
-              decoration: BoxDecoration(color: const Color(0xff52bebe)),
-              accountName: Text(
-                "Name",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              accountEmail: Text(
-                "Info",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.account_circle_outlined,
-              ),
-              title: const Text('Page 1'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.train,
-              ),
-              title: const Text('Page 2'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        ),
-      ),
       body: Column(
         children: [
-          Padding(padding: EdgeInsets.only(top: screen_height*0.05)),
+          Padding(padding: EdgeInsets.only(top: screen_height*0.03)),
           Container(
             width: screen_width*1,
             child: Column(
@@ -100,7 +27,7 @@ class AccountState extends State<Account> {
                 Container(
                   child: ClipOval(
                       child: SizedBox.fromSize(
-                        size: Size.fromRadius(100), // Image radius
+                        size: Size.fromRadius(90), // Image radius
                         child:
                         //Image.network('imageUrl', fit: BoxFit.cover),
                         Image.asset('asset/images/head.jpg',

@@ -25,7 +25,7 @@ class AboutMeState extends State<AboutMe>{
           ),
           onPressed: () {
           // Press and navigate to another page
-             Navigator.of(context).push(MaterialPageRoute(builder: (context) => Account()));
+             Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));
            },
         ),
         title: Text("About Me", style: TextStyle(fontStyle: FontStyle.italic,color: Colors.black),

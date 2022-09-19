@@ -39,7 +39,7 @@ class ManageMyAccountState extends State<ManageMyAccount> {
               ),
             onPressed: () {
                 // Press and navigate to another page
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => Account()));
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));
                 },
           ),
       ),
